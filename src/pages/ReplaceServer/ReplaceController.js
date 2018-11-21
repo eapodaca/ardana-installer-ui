@@ -78,12 +78,12 @@ class ReplaceController extends BaseUpdateWizardPage {
     //
     // Each elements of this combined array, playbook_steps contains:
     //   steps : an array of objects contaiing a label and and event , e.g.
-    //      steps : [{label: translate('foo'),  event: 'playbook.yml'},
-    //               {label: translate('foo'),  event: 'playbook.yml'}]
+    //      steps : [{label: 'foo',  event: 'playbook.yml'},
+    //               {label: 'foo',  event: 'playbook.yml'}]
     //         (this will only be used when running site.yml, where a single playbook results in
     //          multiple noteworth events)
     //        or
-    //      label : label to be shown, e.g. translate('foo').
+    //      label : label locale key to be shown, e.g. 'common.delete'.
     //
     //      playbook: name of a playbook to run. .yml suffix is optional.
     //        or
@@ -101,7 +101,7 @@ class ReplaceController extends BaseUpdateWizardPage {
     // Create an array of all playbooks/steps
     let playbook_steps = [
       {
-        label: translate('deploy.progress.commit'),
+        label: 'deploy.progress.commit',
         action: ((logger) => {
           const commitMessage = {'message': 'Committed via Ardana Installer'};
           return postJson('/api/v2/model/commit', commitMessage)
@@ -117,15 +117,15 @@ class ReplaceController extends BaseUpdateWizardPage {
         }),
       },
       {
-        label: translate('deploy.progress.config-processor-run'),
+        label: 'deploy.progress.config-processor-run',
         playbook: 'config-processor-run.yml'
       },
       {
-        label: translate('deploy.progress.ready-deployment'),
+        label: 'deploy.progress.ready-deployment',
         playbook: 'ready-deployment.yml'
       },
       {
-        label: translate('server.deploy.progress.rm-cobbler'),
+        label: 'server.deploy.progress.rm-cobbler',
         action: ((logger) => {
           return fetchJson('/api/v2/cobbler/servers')
             .then((response) => {
@@ -153,7 +153,7 @@ class ReplaceController extends BaseUpdateWizardPage {
         }),
       },
       {
-        label: translate('server.deploy.progress.rm-known-host'),
+        label: 'server.deploy.progress.rm-known-host',
         action: ((logger) => {
           if (isEmpty(server.hostname)) {
             logger('No hostname found to remove from known_hosts, continuing');
@@ -182,19 +182,19 @@ class ReplaceController extends BaseUpdateWizardPage {
       playbook_steps.push(
         {
           steps: [{
-            label: translate('install.progress.step1'),
+            label: 'install.progress.step1',
             event: 'bm-power-status.yml'
           },
           {
-            label: translate('install.progress.step2'),
+            label: 'install.progress.step2',
             event: 'cobbler-deploy.yml'
           },
           {
-            label: translate('install.progress.step3'),
+            label: 'install.progress.step3',
             event: 'bm-reimage.yml'
           },
           {
-            label: translate('install.progress.step4'),
+            label: 'install.progress.step4',
             event: INSTALL_PLAYBOOK + '.yml'
           }],
           playbook: INSTALL_PLAYBOOK,
@@ -227,11 +227,11 @@ class ReplaceController extends BaseUpdateWizardPage {
 
     playbook_steps.push(
       {
-        label: translate('server.deploy.progress.monasca-rebuild'),
+        label: 'server.deploy.progress.monasca-rebuild',
         playbook: 'monasca-rebuild-pretasks.yml'
       },
       {
-        label: translate('server.deploy.progress.os-config'),
+        label: 'server.deploy.progress.os-config',
         playbook: 'osconfig-run.yml',
         payload: {'extra-vars': {'rebuild': 'True'}, limit: server.hostname}
       },
@@ -259,7 +259,7 @@ class ReplaceController extends BaseUpdateWizardPage {
     if (ring_builder.ardana_ansible_host === server.ardana_ansible_host) {
       playbook_steps.push(
         {
-          label: translate('server.deploy.progress.swift-check'),
+          label: 'server.deploy.progress.swift-check',
           action: ((logger) => {
             return new Promise((resolve, reject) => {
               this.setState({
@@ -280,11 +280,11 @@ class ReplaceController extends BaseUpdateWizardPage {
     }
 
     playbook_steps.push({
-      label: translate('server.deploy.progress.ardana-deploy'),
+      label: 'server.deploy.progress.ardana-deploy',
       playbook: 'ardana-deploy.yml',
       payload: {'extra-vars': {'rebuild': 'True'}, limit: deploy_limit}
     },{
-      label: translate('server.deploy.progress.ceilometer'),
+      label: 'server.deploy.progress.ceilometer',
       playbook: 'ceilometer-reconfigure.yml',
     });
 

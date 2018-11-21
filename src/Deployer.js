@@ -13,7 +13,7 @@
 * limitations under the License.
 **/
 import React, { Component } from 'react';
-import './styles/deployer.less';
+import { hot } from 'react-hot-loader';
 import InstallWizard from './InstallWizard';
 import NavMenu from './components/NavMenu.js';
 import { pages } from './utils/WizardDefaults.js';
@@ -110,4 +110,4 @@ class Deployer extends Component {
   }
 }
 
-export default Deployer;
+export default hot(module)(Deployer);

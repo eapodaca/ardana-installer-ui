@@ -19,7 +19,8 @@ module.exports = {
   },
   'plugins': [
     'react',
-    'jsx-control-statements'
+    'jsx-control-statements',
+    'promise'
   ],
   'rules': {
     'indent': ['error', 2],
@@ -35,5 +36,6 @@ module.exports = {
     'no-unused-vars': ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": false}],
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
+    'promise/prefer-await-to-then': 'warn'
   }
 };

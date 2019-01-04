@@ -20,7 +20,7 @@ import ReactDOM from 'react-dom';
 
 import Deployer from './src/Deployer';
 import './src/styles/deployer.less';
-import './src/images/favicon.ico';
+// import './src/images/favicon.ico';
 
 const render = Component => {
   let root = document.getElementById('root');

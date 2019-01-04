@@ -9,7 +9,6 @@
     "@babel/react"
   ],
   "plugins": [
-    "react-hot-loader/babel",
     "babel-plugin-jsx-control-statements",
     "@babel/plugin-proposal-optional-chaining",
     "@babel/plugin-proposal-function-bind",
